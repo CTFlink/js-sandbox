@@ -1,8 +1,7 @@
-#Classic TODO list
+# Classic TODO list
 
-##Ressourcer
+## Ressourcer
 
-[Bootstrap]
-https://getbootstrap.com/docs/4.5/getting-started/introduction/
+[Bootstrap](https://getbootstrap.com/docs/4.5/getting-started/introduction/)
 
-[Font Awesome]https://fontawesome.com/6?next=%2F
+[Font Awesome](https://fontawesome.com/6?next=%2F)
