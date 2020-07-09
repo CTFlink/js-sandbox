@@ -1,5 +1,6 @@
 const addForm = document.querySelector(".add");
 const list = document.querySelector(".todos");
+const search = document.querySelector(".search input");
 
 //her laver jeg html'en der hører til en todo (gøremål)
 const generateTemplate = (todo) => {
@@ -27,10 +28,29 @@ addForm.addEventListener("submit", (e) => {
   addForm.reset();
 });
 
-//slet todos
+//delete todos
 list.addEventListener("click", (e) => {
   //her checker jeg om den class der rent faktisk er klikket på, indeholder delete classen
   if (e.target.classList.contains("delete"))
     // i så fald, går jeg et niveau op til parent (Li tagget) og sletter den
     e.target.parentElement.remove();
+});
+
+//function til at lave søgningen
+const filterTodos = (term) => {
+  //Jeg laver en array af list.children dvs. <span> taggene i listerne og filtrerer dem
+  Array.from(list.children).filter((todo) => {
+    //Hvis det indtastede term inkluderer textindholdet i span tagget skal det ikke bruges
+    !todo.textContent
+      .includes(term)
+      //derefter løber jeg igennem de list tags som er blevet filtreret og giver dem en class
+      .forEach((todo) => todo.classList.add("filtered"));
+  });
+};
+
+//keyup event... dvs. når brugeren taster et bogstav i søgefeltet køres denne function
+search.addEventListener("keyup", () => {
+  const term = search.value.trim();
+  //hver gang en tast bliver tastet kaldes denne method
+  filterTodos(term);
 });
