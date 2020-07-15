@@ -39,18 +39,25 @@ list.addEventListener("click", (e) => {
 //function til at lave søgningen
 const filterTodos = (term) => {
   //Jeg laver en array af list.children dvs. <span> taggene i listerne og filtrerer dem
-  Array.from(list.children).filter((todo) => {
-    //Hvis det indtastede term inkluderer textindholdet i span tagget skal det ikke bruges
-    !todo.textContent
-      .includes(term)
-      //derefter løber jeg igennem de list tags som er blevet filtreret og giver dem en class
-      .forEach((todo) => todo.classList.add("filtered"));
-  });
+  Array.from(list.children)
+    .filter(
+      (todo) =>
+        //Hvis den indtastede term inkluderer textindholdet i span tagget skal det ikke sorteres fra
+        !todo.textContent.toLowerCase().includes(term)
+    )
+    //derefter løber jeg igennem de list tags som er blevet filtreret og giver dem classen "filtered"
+    .forEach((todo) => todo.classList.add("filtered"));
+  //Ved at give de <span> der ikke matcher "term" en class der hedder "filtered har jeg sorteret efter søgningen
+
+  //Her gør jeg det modsatte end ovenover, dvs. fjerner class "filtered" når det rent faktisk matcher
+  Array.from(list.children)
+    .filter((todo) => todo.textContent.toLowerCase().includes(term))
+    .forEach((todo) => todo.classList.remove("filtered"));
 };
 
 //keyup event... dvs. når brugeren taster et bogstav i søgefeltet køres denne function
 search.addEventListener("keyup", () => {
-  const term = search.value.trim();
+  const term = search.value.trim().toLowerCase();
   //hver gang en tast bliver tastet kaldes denne method
   filterTodos(term);
 });
